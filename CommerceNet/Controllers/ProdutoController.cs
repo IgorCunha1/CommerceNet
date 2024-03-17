@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CommerceNet.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProdutoController : ControllerBase
     {
                 

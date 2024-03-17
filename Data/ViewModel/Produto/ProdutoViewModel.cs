@@ -1,8 +1,7 @@
-﻿namespace Data.Model
+﻿namespace Data.ViewModel.Produto
 {
-    public class Produto
+    public class ProdutoViewModel
     {
-        public int Id { get; set; }
         public string Nome { get; set; } = string.Empty;
         public decimal PrecoCompra { get; set; }
         public decimal PrecoVenda { get; set; }
