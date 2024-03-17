@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Data
 {
@@ -6,6 +7,6 @@ namespace Data.Data
     {
         public CommerceDb(DbContextOptions<CommerceDb> options) : base(options) { }
 
-
-    }
+        public DbSet<Produto> Produtos {get;set;}
+}
 }

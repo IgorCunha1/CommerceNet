@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceNet", "CommerceNet\CommerceNet.csproj", "{FB68C195-AB71-45EA-AE67-AC2833094A71}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E54A525B-C883-4BC3-80A5-919E41A8FCA2} = {E54A525B-C883-4BC3-80A5-919E41A8FCA2}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{E54A525B-C883-4BC3-80A5-919E41A8FCA2}"
 EndProject
