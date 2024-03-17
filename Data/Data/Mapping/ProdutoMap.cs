@@ -14,7 +14,7 @@ namespace Data.Data.Mapping
             builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Nome);
+            builder.Property(x => x.Descricao);
 
             builder.Property(x => x.PrecoCompra);
             builder.Property(x => x.PrecoVenda);

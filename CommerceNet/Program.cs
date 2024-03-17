@@ -1,3 +1,5 @@
+using Business.Interfaces;
+using Business.Services;
 using Data.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+builder.Services.AddTransient<IProdutoService, ProdutoService>();
 
 builder.Services.AddDbContext<CommerceDb>(opt => opt.UseSqlServer
                 (builder.Configuration.GetConnectionString("commerceCon")));
