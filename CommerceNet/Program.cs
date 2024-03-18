@@ -12,12 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddDbContext<CommerceDb>(opt => opt.UseSqlServer
+                (builder.Configuration.GetConnectionString("commerceCon")));
 
 builder.Services.AddTransient<IProdutoService, ProdutoService>();
 
-builder.Services.AddDbContext<CommerceDb>(opt => opt.UseSqlServer
-                (builder.Configuration.GetConnectionString("commerceCon")));
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

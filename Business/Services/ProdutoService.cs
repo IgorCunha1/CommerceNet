@@ -3,7 +3,7 @@ using Data.Data;
 using Data.Model;
 using Data.ViewModel.Produto;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
+
 
 namespace Business.Services
 {
@@ -17,7 +17,7 @@ namespace Business.Services
             _context = context;
         }
 
-        public async Task InserirProdutos(CadastroProdutoViewModel ProdutoViewModel)
+        public async Task InserirProduto(CadastroProdutoViewModel ProdutoViewModel)
         {
             _context.Produtos.Add(new Produto
             {
@@ -28,15 +28,16 @@ namespace Business.Services
                 PrecoCompra = ProdutoViewModel.PrecoCompra,
                 PrecoVenda = ProdutoViewModel.PrecoVenda,
             });
-            
+
             await _context.SaveChangesAsync();
         }
 
-        public async Task EditarProdutos(EditarProdutoViewModel ProdutoViewModel)
+        public async Task EditarProduto(EditarProdutoViewModel ProdutoViewModel)
         {
-            var produto = await _context.Produtos.FirstOrDefaultAsync(x => x.Id == ProdutoViewModel.Id);
+            var produto = await _context.Produtos
+                .FirstOrDefaultAsync(x => x.Id == ProdutoViewModel.Id && x.Ativo);
 
-            if(produto is null)
+            if (produto is null)
                 throw new NullReferenceException("Produto não encontrado");
 
             produto.PrecoVenda = ProdutoViewModel.PrecoVenda;
@@ -44,12 +45,17 @@ namespace Business.Services
             produto.Categoria = ProdutoViewModel.Categoria;
             produto.Img = ProdutoViewModel.Img;
             produto.Descricao = ProdutoViewModel.Descricao;
-                        
+
+            produto.DataAtualizacao = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task<ProdutoViewModel?> ObterProdutoPorId(int id)
         {
-            var produto = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            var produto = await _context.Produtos.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id && x.Ativo);
 
             if (produto == null)
                 return null;
@@ -68,6 +74,7 @@ namespace Business.Services
         public async Task<IList<ProdutoViewModel>> ObterProdutos()
         {
             return await _context.Produtos.AsNoTracking()
+                .Where(x => x.Ativo)
                 .Select(x => new ProdutoViewModel
                 {
                     Descricao = x.Descricao,
@@ -77,6 +84,18 @@ namespace Business.Services
                     PrecoVenda = x.PrecoVenda,
                     Quantidade = x.Quantidade
                 }).ToListAsync();
+        }
+
+        public async Task DeletarProduto(int id)
+        {
+            var produto = await _context.Produtos.FirstOrDefaultAsync(x => x.Id == id && x.Ativo);
+
+            if (produto == null)
+                throw new Exception("Produto não encontrado");
+
+            produto.Ativo = false;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

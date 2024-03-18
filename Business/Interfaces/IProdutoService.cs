@@ -4,9 +4,10 @@ namespace Business.Interfaces
 {
     public interface IProdutoService
     {
-        Task InserirProdutos(CadastroProdutoViewModel ProdutoViewModel);
-        Task EditarProdutos(EditarProdutoViewModel ProdutoViewModel);
+        Task InserirProduto(CadastroProdutoViewModel ProdutoViewModel);
+        Task EditarProduto(EditarProdutoViewModel ProdutoViewModel);
         Task<IList<ProdutoViewModel>> ObterProdutos();
         Task<ProdutoViewModel?> ObterProdutoPorId(int id);
+        Task DeletarProduto(int id);
     }
 }
